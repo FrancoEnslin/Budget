@@ -28,7 +28,7 @@ export default function AddBudgetModal({ show, handleClose }) {
                 </Modal.Header>
                 <Modal.Body>
 
-                    <Form.Group className="mb-3" controlId="max">
+                    <Form.Group className="mb-3" controlId="name">
                         <Form.Label>Name</Form.Label>
                         <Form.Control ref={nameRef} type="text" required />
                     </Form.Group>
