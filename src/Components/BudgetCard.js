@@ -17,7 +17,7 @@ export default function BudgetCard({ name, amount, max, gray, hideButtons, onAdd
     function getProgressBarVariant(amount, max) {
         const ratio = amount / max
         if (ratio < 0.5) return "primary"
-        if (ratio < 0.75) return "warning"
+        if (ratio < 0.80) return "warning"
         return "danger"
     }
 
