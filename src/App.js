@@ -9,6 +9,8 @@ import AddExpenseModal from './Components/AddExpenseModal';
 import UncategorizedBudgetCard from './Components/UncategorizedBudgetCard';
 import TotalBudgetCard from './Components/TotalBudgetCard';
 import ViewExpensesModal from './Components/ViewExpensesModal';
+import TotalSavingsCard from './Components/TotalSavingsCard';
+import Charts from './Components/Charts';
 
 
 function App() {
@@ -64,6 +66,9 @@ function App() {
             }
           />
           <TotalBudgetCard />
+          <TotalSavingsCard />
+
+          <Charts />
         </div>
       </Container>
 
