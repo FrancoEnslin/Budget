@@ -16,58 +16,54 @@ export default function Charts() {
         const r = Math.floor(Math.random() * 256); // red component (0-255)
         const g = Math.floor(Math.random() * 256); // green component (0-255)
         const b = Math.floor(Math.random() * 256); // blue component (0-255)
-        return `rgb(${r}, ${g}, ${b})`; // return a string in the format "rgb(R, G, B)"
+        const a = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b}), ${a}`; // return a string in the format "rgb(R, G, B)"
     });
 
-    const expensesLabels = expenses.map((element) =>{
+    const colorsAgain = [];
+
+    for (let i = 0; i < 20; i++) {
+        const r = Math.floor(Math.random() * 256); // red component (0-255)
+        const g = Math.floor(Math.random() * 256); // green component (0-255)
+        const b = Math.floor(Math.random() * 256); // blue component (0-255)
+        colors.push(`rgb(${r}, ${g}, ${b})`); // push a string in the format "rgb(R, G, B)" to the colors array
+    }
+
+    console.log('colors: ', colors)
+
+    const expensesLabels = expenses.map((element) => {
         const label = element.description
         return label
     })
 
-    const amounts = expenses.map((element) =>{
+    const amounts = expenses.map((element) => {
         const value = element.amount;
         return value
     })
 
-    console.log(colors)
-
-    expenses.map((element) =>{
-        
-    })
-
- 
     const expensesData = {
 
-        
-        labels: [expensesLabels],
+
+        labels: expensesLabels,
         datasets: [
             {
                 label: 'R spent',
-                data: [amounts],
-                backgroundColor: [
-
-                    //For the number of expenses set each expense to a different color
-                    colors,
-
-
-                ],
-                borderColor: [
-                    //For the number of expenses set each expense to a different color
-                    colors,
-
-                ],
+                data: amounts,
+                backgroundColor: colorsAgain,
+                borderColor: colors,
                 borderWidth: 1,
             },
         ],
     };
 
     const summary = {
-        labels: [expensesLabels.toString()],
+        labels: expensesLabels,
         datasets: [
             {
-                label: amounts,
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'R spent',
+                data: amounts,
                 backgroundColor: [
+                    colors,
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -76,6 +72,7 @@ export default function Charts() {
                     'rgba(255, 159, 64, 0.2)',
                 ],
                 borderColor: [
+                    colors,
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
