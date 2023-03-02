@@ -6,30 +6,35 @@ import { stringify } from 'uuid';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-
-
 export default function Charts() {
-
     const { expenses, budgets } = useBudgets();
+    const amount = expenses.reduce((total, expense) => total + expense.amount, 0)
+    const max = budgets.reduce((total, budgets) => total + budgets.max, 0)
+    if (max === 0) return null;
 
-    const colors = expenses.map(() => {
-        const r = Math.floor(Math.random() * 256); // red component (0-255)
-        const g = Math.floor(Math.random() * 256); // green component (0-255)
-        const b = Math.floor(Math.random() * 256); // blue component (0-255)
-        const a = Math.floor(Math.random() * 256);
-        return `rgb(${r}, ${g}, ${b}), ${a}`; // return a string in the format "rgb(R, G, B)"
-    });
+    //Investing
 
-    const colorsAgain = [];
+    let expensesnewTotal = 0;
 
-    for (let i = 0; i < 20; i++) {
-        const r = Math.floor(Math.random() * 256); // red component (0-255)
-        const g = Math.floor(Math.random() * 256); // green component (0-255)
-        const b = Math.floor(Math.random() * 256); // blue component (0-255)
-        colors.push(`rgb(${r}, ${g}, ${b})`); // push a string in the format "rgb(R, G, B)" to the colors array
+   console.log(expenses)
+
+    //Expenses
+    function getExpenses(){
+        expenses.forEach(element => {
+            
+             expensesnewTotal =+ element.amount;
+            return expensesnewTotal;
+        });
     }
 
-    console.log('colors: ', colors)
+    const finalExpenses = getExpenses()
+    console.log('total Expenses ',expensesnewTotal)
+    console.log(expenses.amount)
+
+    //Savings
+    const savings = max - amount;
+
+    console.log('Savings ',savings)
 
     const expensesLabels = expenses.map((element) => {
         const label = element.description
@@ -49,13 +54,39 @@ export default function Charts() {
             {
                 label: 'R spent',
                 data: amounts,
-                backgroundColor: colorsAgain,
-                borderColor: colors,
+                backgroundColor: [
+                    
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 0, 0, 0.2)', //- This is a shade of red.
+                    'rgba(0, 255, 0, 0.2)',// - This is a shade of green.
+                    'rgba(0, 0, 255, 0.2)' ,//- This is a shade of blue.
+                    'rgba(255, 255, 0, 0.2)',// - This is a shade of yellow.
+                    'rgba(128, 0, 128, 0.2)',// - This is a shade of purple.
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 0, 0, 1)', //- This is a shade of red.
+                    'rgba(0, 255, 0, 1)',// - This is a shade of green.
+                    'rgba(0, 0, 255, 1)' ,//- This is a shade of blue.
+                    'rgba(255, 255, 0, 1)',// - This is a shade of yellow.
+                    'rgba(128, 0, 128, 1)',// - This is a shade of purple.
+                ],
                 borderWidth: 1,
             },
         ],
     };
 
+    //This comprises of Investments, Savings and expenses
     const summary = {
         labels: expensesLabels,
         datasets: [
@@ -63,7 +94,7 @@ export default function Charts() {
                 label: 'R spent',
                 data: amounts,
                 backgroundColor: [
-                    colors,
+                    
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -72,7 +103,7 @@ export default function Charts() {
                     'rgba(255, 159, 64, 0.2)',
                 ],
                 borderColor: [
-                    colors,
+                    
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
