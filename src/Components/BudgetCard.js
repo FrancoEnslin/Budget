@@ -22,6 +22,8 @@ export default function BudgetCard({ name, amount, max, gray, hideButtons, onAdd
     }
 
 
+
+
     return (
         <Card className={classNames.join(" ")}>
             <Card.Body>
