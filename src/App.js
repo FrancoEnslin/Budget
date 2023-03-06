@@ -3,7 +3,7 @@ import './App.css';
 import { Button, Container, Stack } from 'react-bootstrap';
 import BudgetCard from './Components/BudgetCard';
 import AddBudgetModal from './Components/AddBugetModal';
-import { useState } from 'react';
+import { React, useRef, useState } from 'react';
 import { UNCATEGORIZED_BUDGET_ID, useBudgets } from './contexts/BudgetsContext';
 import AddExpenseModal from './Components/AddExpenseModal';
 import UncategorizedBudgetCard from './Components/UncategorizedBudgetCard';
@@ -11,15 +11,18 @@ import TotalBudgetCard from './Components/TotalBudgetCard';
 import ViewExpensesModal from './Components/ViewExpensesModal';
 import TotalSavingsCard from './Components/TotalSavingsCard';
 import Charts from './Components/Charts';
+import { exportComponentAsPDF } from 'react-component-export-image';
 
 
 function App() {
+
+  const componentRef = useRef();
 
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
   const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState()
   const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
-  const { budgets, getBudgetExpenses } = useBudgets()
+  const { budgets, getBudgetExpenses } = useBudgets() 
 
 
   function openAddExpenseModal(budgetId) {
@@ -32,6 +35,8 @@ function App() {
     // localStorage.removeItem('budgets')
 
 }
+
+
 
   return (
     <>

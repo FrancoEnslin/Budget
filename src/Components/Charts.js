@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { useBudgets } from '../contexts/BudgetsContext';
 import { stringify } from 'uuid';
+import { Button } from 'bootstrap';
+import { Stack } from 'react-bootstrap';
+import { exportComponentAsPDF } from 'react-component-export-image';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,6 +18,9 @@ export default function Charts() {
     let expensesnewTotal = 0;
     let investingTotal = 0;
 
+    // const month = new Date().getMonth()
+    // console.log(month) 
+
 
     //Expenses and Investing
     function getExpenses() {
@@ -22,9 +28,12 @@ export default function Charts() {
 
             if (element.description === 'Investments') {
                 investingTotal = element.amount;
+                
+            }else{
+                expensesnewTotal = expensesnewTotal + element.amount;
+                return expensesnewTotal;  
             }
-            expensesnewTotal = expensesnewTotal + element.amount;
-            return expensesnewTotal;
+
         });
     }
 
@@ -118,15 +127,24 @@ export default function Charts() {
     };
 
 
+
+ 
     return (
         <>
-            <div className='expenses-chart'>
+            
+            <div className='expenses-chart' style={{display: 'block'}} >
+                <h5 style={{alignItems: 'center', flexDirection: 'row',}}>Expenses</h5>
+                <br />
                 <Pie data={expensesData} />
             </div>
             <br />
-            <div className='summary-chart'>
+          
+            <div className='summary-chart' style={{display: 'block'}}>
+                <h3 style={{alignItems: 'center', flexDirection: 'row',}}>Summary</h3>
                 <Pie data={summary} />
-            </div>
+             {/* <button onClick={() => exportComponentAsPDF(componentRef)}></button> */}
+            </div> 
+           
         </>
     )
 }
